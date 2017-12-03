@@ -25,5 +25,22 @@
 
   echo('<p>El titulo de la tienda es <h1>'.$output_test.'</h1></p>');
 
+  
+  echo('<p>El titulo de la tienda es <h1>'.$output_test.'</h1></p>');
+  echo('<p>Ahora vamos a coger el nombre de un producto con una nueva petición</p>');
+
+  $opcion = '/admin/products.json';
+  $url_conexion = $api_url.$opcion;
+
+  $mensaje = file_get_contents($url_conexion);
+  $mensaje_json = json_decode($mensaje,true);
+
+  $product_array = $mensaje_json['products'];
+
+  $product_title = $product_array[0]['title'];
+
+  echo('<p>El titulo del primer product de la lista es <h1>'.$product_title.'</h1></p>');
+
+
 
 ?>
