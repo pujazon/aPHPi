@@ -20,55 +20,100 @@
 
 
   <div class="row text-center" style="margin-right: 25%; margin-left: 25%;">
-    <div class="col-6">
+    <div class="col-4">
       <a class="btn btn-primary" href="/conect.php"> 1. Conect</a>
     </div>
-    <div class="col-6">
+    <div class="col-4">
       <a class="btn btn-primary" href="/stock.php"> 2. Stock </a>
+    </div>
+    <div class="col-4">
+      <a class="btn btn-primary" href="/index.php"> Home </a>
     </div>
   </div>
 
   <div class="row text-center" style="margin-right: 10%; margin-left: 10%;">
+  	<div class="col-12">
+  		<p>Dado el nombre de un producto veremos cuantos quedan en el stock, lo pondremos a pe: 7 y lo volveremos a mostrar</p>
+  	</div>
+  	<div class="col-12">
+	  	<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
+	  		Titulo del Producto: <input type="text" name="title">
+	 		<input type="submit" name="submit" value="Entra">  
+		</form>
+	</div>
+	<div class="col-12">
+	    <?php  
 
-    <?php  
+	      	//Primero vamos a coger el valor entrado por el input
+
+	    	$ptitle = NULL;
+
+			if ($_SERVER["REQUEST_METHOD"] == "POST") {
+			  $ptitle = arregla_string($_POST["title"]);
+			}
+
+			function arregla_string($data) {
+			  $data = trim($data);
+			  $data = stripslashes($data);
+			  $data = htmlspecialchars($data);
+			  return $data;
+			}
+			if ($ptitle != NULL) echo ('<p>El nombre del producto introducido es: '.$ptitle.'. <p>');
+
+			$API_KEY = 'X';
+			$SECRET = 'Y';
+			$STORE_URL = 'Z';
+
+			//Aquí tendremos la base de las URL que usará la API
+			//Usaremos la variable $opcion para poner la ruta que neceseitará para cada
+			//petición concreta
+
+			$api_url = 'https://'.$API_KEY.':'.$SECRET.'@'.$STORE_URL;
+
+			$opcion = '/admin/products.json';
+			$url_conexion = $api_url.$opcion;
+
+			$mensaje = file_get_contents($url_conexion);
+			$mensaje_json = json_decode($mensaje,true);
+
+			$product_array = $mensaje_json['products'];
 
 
-      $API_KEY = 'X';
-      $SECRET = 'Y';
-      $STORE_URL = 'Z';
-      
-      //Aquí tendremos la base de las URL que usará la API
-      //Usaremos la variable $opcion para poner la ruta que neceseitará para cada
-      //petición concreta
+			//Busqueda del producto introducido
 
-      $api_url = 'https://'.$API_KEY.':'.$SECRET.'@'.$STORE_URL;
-      $opcion = '/admin/shop.json';
+			$i = 0;
+			$trobat = false;
+			$n = sizeof($product_array);
 
-      $url_conexion = $api_url.$opcion;
+			$product = NULL;
 
+			while($i < $n && !$trobat){
+				$current = $product_array[$i];
+				echo('<p>Current: '.$current['title'].'</p>');
+				if ($current['title'] == $ptitle){
+					$product = $current;
+					$trobat = true;
+				}
+				else //Es else porque abajo hago el putput que quiero que sea el mismo y sino incrementa 1 de mas. NO trascendente
+				$i += 1;
+			}
 
-      $mensaje = file_get_contents( $url_conexion );
-      $mensaje_json = json_decode($mensaje, true);
+			if ($product != NULL) echo ('<p> El elemento $current['.$i.'] del vector era el producto '.$product['title'].'</p>');
+			else echo ('Ningun product tiene el nombre introducido');
 
+			echo ('<p> Sacamos todas las variantes y la cantidad que qeuda en el stock </p>');
+	
+			$n = sizeof($product['variants']);
 
-      $output_test = $mensaje_json['shop']['name'];
+			for ($i=0; $i < $n ; $i++) { 
+				$current_variant = $product['variants'][$i];
 
-      echo('<p>El titulo de la tienda es <h3>'.$output_test.'</h3></p>');
-      echo('<p>Ahora vamos a coger el nombre de un producto con una nueva petición</p>');
+				echo ('<p> Titulo Variant: '.$current_variant['title'].' --> #'.$current_variant['inventory_quantity'].' productos en stock. </p>');
+			}
 
-      $opcion = '/admin/products.json';
-      $url_conexion = $api_url.$opcion;
-
-      $mensaje = file_get_contents($url_conexion);
-      $mensaje_json = json_decode($mensaje,true);
-
-      $product_array = $mensaje_json['products'];
-
-      $product_title = $product_array[0]['title'];
-
-      echo('<p>El titulo del primer product de la lista es <h3>'.$product_title.'</h3></p>');
-
-
-    ?>
+	    ?>
+	</div>
   </div>
 </body>
+
+
