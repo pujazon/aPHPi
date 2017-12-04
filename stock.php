@@ -111,6 +111,43 @@
 				echo ('<p> Titulo Variant: '.$current_variant['title'].' --> #'.$current_variant['inventory_quantity'].' productos en stock. </p>');
 			}
 
+			
+			//Ahora vamos a modificar el valor de uno de los campos del product
+			//Para ello usaremos el PUT, abriendo un canal para el php://input 
+			//I ahi hacemos un write del mensaje.
+			//El mensaje ha de ser el JSON solo con el atributo a modificar.
+
+
+			if($product['title'] == 'Prueva'){
+				 $aux_new_message = array('product' => array('sku'=> 7, 'title' => $product['title'].'NEW'));
+			 	 $new_message =json_encode($aux_new_message);
+
+				 print_r($new_message);
+
+
+				 $opcion = '/admin/products/#'.$product['id'].'json';
+				 $url_conexion = $api_url.$opcion;
+
+				 echo $url_conexion;				 
+
+				 $ch = curl_init($url_conexion);
+				 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+				 curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($new_message));
+
+				 $response = curl_exec($ch);
+
+				 if (!$response) 
+				 {
+				     return false;
+				 }
+
+			}
+
+			else{
+				echo 'Error en la modificación. Solo modificamos producto Prueva';
+			}
+
 	    ?>
 	</div>
   </div>
