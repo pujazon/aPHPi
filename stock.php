@@ -128,19 +128,19 @@
 				 $opcion = '/admin/products/#'.$product['id'].'json';
 				 $url_conexion = $api_url.$opcion;
 
-				 echo $url_conexion;				 
 
-				 $ch = curl_init($url_conexion);
-				 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-				 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
-				 curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($new_message));
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_URL, $url_conexion);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json','Content-Length: ' . strlen($new_message)));
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+				curl_setopt($ch, CURLOPT_POSTFIELDS,$new_message);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				$response  = curl_exec($ch);
 
-				 $response = curl_exec($ch);
+				echo 'Output response --> '.$response;
+				
+				curl_close($ch);
 
-				 if (!$response) 
-				 {
-				     return false;
-				 }
 
 			}
 
