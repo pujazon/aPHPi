@@ -43,8 +43,9 @@
 	</div>
 	<div class="col-12">
 	    <?php  
-			
-			require 'vendor/autoload.php';
+
+	        require 'vendor/autoload.php';
+
 
 	      	//Primero vamos a coger el valor entrado por el input
 
@@ -127,23 +128,29 @@
 				 print_r($new_message);
 
 
-				 $opcion = '/admin/products/#'.$product['id'].'json';
+
+				 $opcion = '/admin/products/'.$product['id'].'.json';
+				 ECHO $opcion;
 				 $url_conexion = $api_url.$opcion;
 
-				        $client = new GuzzleHttp\Client();
+				        $client = new GuzzleHttp\Client(
+				            ['base_uri' => $api_url]
+				        );
 				      
-				       $api_response = $client->request('POST', $opcion,
+				       $api_response = $client->request('PUT', $opcion,
 				                    ['headers' => ['Content-Type' => 'application/json'],
-				                        'body' => $new_message
+				                        'body' => $new_message,
 				                    ]
 				                );
-				                if($api_response->getStatusCode() == 201)
+
+				                if($api_response->getStatusCode() == 200)
 				                {
-				                    echo $product->getTitle()." has been successfully added.\n";
+				                    echo "Response 200 ".$product['title'];
+
 				                }
 				                else
 				                {
-				                    echo "Error ocurred while adding ".$product->getTitle().".\n";
+				                    echo "Error ocurred while adding ".$product['title'];
 				                }
 				            }
 			else{
