@@ -43,6 +43,8 @@
 	</div>
 	<div class="col-12">
 	    <?php  
+			
+			require 'vendor/autoload.php';
 
 	      	//Primero vamos a coger el valor entrado por el input
 
@@ -60,9 +62,9 @@
 			}
 			if ($ptitle != NULL) echo ('<p>El nombre del producto introducido es: '.$ptitle.'. <p>');
 
-			$API_KEY = 'X';
-			$SECRET = 'Y';
-			$STORE_URL = 'Z';
+			$API_KEY = '031503fa0fac5f67fa2de48e37a096f1';
+			$SECRET = '32a968e728864d930fef9b61ea43c9e9';
+			$STORE_URL = 'velas-artesanas.myshopify.com';
 
 			//Aquí tendremos la base de las URL que usará la API
 			//Usaremos la variable $opcion para poner la ruta que neceseitará para cada
@@ -128,22 +130,22 @@
 				 $opcion = '/admin/products/#'.$product['id'].'json';
 				 $url_conexion = $api_url.$opcion;
 
-
-				$ch = curl_init();
-				curl_setopt($ch, CURLOPT_URL, $url_conexion);
-				curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json','Content-Length: ' . strlen($new_message)));
-				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
-				curl_setopt($ch, CURLOPT_POSTFIELDS,$new_message);
-				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-				$response  = curl_exec($ch);
-
-				echo 'Output response --> '.$response;
-				
-				curl_close($ch);
-
-
-			}
-
+				        $client = new GuzzleHttp\Client();
+				      
+				       $api_response = $client->request('POST', $opcion,
+				                    ['headers' => ['Content-Type' => 'application/json'],
+				                        'body' => $new_message
+				                    ]
+				                );
+				                if($api_response->getStatusCode() == 201)
+				                {
+				                    echo $product->getTitle()." has been successfully added.\n";
+				                }
+				                else
+				                {
+				                    echo "Error ocurred while adding ".$product->getTitle().".\n";
+				                }
+				            }
 			else{
 				echo 'Error en la modificación. Solo modificamos producto Prueva';
 			}
