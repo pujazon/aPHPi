@@ -133,6 +133,7 @@
 	<body onclick="state_action(event)">
 		<div id="wrapper" style="opacity: 1;">
 			<div id="content">
+				<h1> Also Git support </h1>
 				<div id="logo-claim">
 					<div id="logo">
 						<a href="./cmain.php">
