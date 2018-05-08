@@ -16,7 +16,7 @@
 		
 <?php
 
-	$con = @mysqli_connect('http://devphp.lafamiglia.me:3360/', 'dummy', 'Dummy123456_', 'counters');
+	$con = @mysqli_connect('localhost:3306', 'dummy', 'Dummy123456_', 'counters');
 
 	if (!$con) {
 	    echo "Error: " . mysqli_connect_error();
