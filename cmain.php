@@ -16,7 +16,7 @@
 		
 <?php
 
-	$con = @mysqli_connect('http://51.38.46.56/plesk-site-preview/devphp.lafamiglia.me/51.38.46.56:/3306', 'dummy', 'Dummy123456_', 'counters');
+	$con = @mysqli_connect('http://51.38.46.56:3306/', 'dummy', 'Dummy123456_', 'counters');
 
 	if (!$con) {
 	    echo "Error: " . mysqli_connect_error();
