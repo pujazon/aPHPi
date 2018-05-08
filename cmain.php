@@ -16,12 +16,13 @@
 		
 <?php
 
-include 'counters.php';
+	$con = @mysqli_connect('http://51.38.46.56/plesk-site-preview/devphp.lafamiglia.me/51.38.46.56:/3306', 'dummy', 'Dummy123456_', 'counters');
 
-$tmp1=$GLOBALS["id1"];
-$tmp2=$GLOBALS["id2"];
-
-echo "ID1:$tmp1 \n ID2: $tmp2"; // Una manzana verde
+	if (!$con) {
+	    echo "Error: " . mysqli_connect_error();
+		exit();
+	}
+	echo 'Connected to MySQL';
 
 ?>
 	</body>
