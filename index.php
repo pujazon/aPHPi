@@ -215,36 +215,28 @@ function test_input($data) {
 						  Name: <input type="text" name="name" value="<?php echo $name;?>">
 						  <span class="error">* <?php echo $nameErr;?></span>
 						  <br><br>
+						  <input type="submit" name="submit" value="Submit">  
 						</form>
-						<li onclick="popup_open()">
+				<li onclick="popup_open()">
 							<h1>MENU </h1>
 					</li>
 				</ul>
+
+				<?php
+					echo "<h2>Your Input:</h2>";
+					echo $name;
+					echo "<br>";
+					echo $email;
+					echo "<br>";
+					echo $website;
+					echo "<br>";
+					echo $comment;
+					echo "<br>";
+					echo $gender;
+					?>
 				
 				<!-- Begin MailChimp Signup Form -->
-				<div class="show-for-small-only">
-					<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
-					<style type="text/css">
-						#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
-					/*Add your own MailChimp form style overrides in your site stylesheet or in this style block.
-					We recommend moving this block and the preceding CSS link to the HEAD of your HTML file.*/
-					</style>
-					<div id="mc_embed_signup">
-						<form action="https://mc.us13.list-manage.com/subscribe/post?u=9a010a5289a628df33a8d5f31&id=a354db57da&e=91d138b8ab" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-							<div id="mc_embed_signup_scroll">
-								<label for="mce-EMAIL" style="font-size: 14px;">Suscribete a nuestra newsletter</label>
-								<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required style="width: 70%;margin-bottom: 0.5em;font-size: 12px;">
-								<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups -->
-								<div style="position: absolute; left: -5000px;" aria-hidden="true">
-									<input type="text" name="b_4ef684eff3544b6068d0bd04f_4360823997" tabindex="-1" value="">
-								</div>
-								<div class="clear">
-									<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button" style="width: 30%; margin-left: 0%;">
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
+
 				<div class="show-for-large">
 					<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
 					<style type="text/css">
@@ -272,7 +264,7 @@ function test_input($data) {
 			
 			</div>
 		</div>
-						<div class="popup oculto" id="mc_embed_signup_menu" na>
+			<div class="popup oculto" id="mc_embed_signup_menu" na>
 			<form action="https://mc.us13.list-manage.com/subscribe/post?u=9a010a5289a628df33a8d5f31&id=a354db57da&e=91d138b8ab" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
 				<img class="icono_cerrar" src="img/icono_cerrar.png" onclick="popup_close()">
 				
