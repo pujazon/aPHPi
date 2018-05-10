@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
 	//Una vez tenemos los clicks hechos, sumamos 1 y añadimos.
 	$count++;
-	$sql = "INSERT INTO ".$table_name."(`id`, `dia`, `hora`, `min`) VALUES (".$count.",'".$dia."',".$hora.",".$minuto.")";
+	$sql = "INSERT INTO ".$table_name."(`id`, `dia`, `hora`, `minuto`) VALUES (".$count.",'".$dia."',".$hora.",".$minuto.")";
 
 	if ($db->query($sql) === TRUE) {
 	    echo "New record created successfully";
