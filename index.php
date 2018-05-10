@@ -1,24 +1,85 @@
 <?php
 
+//Debug///////////////////////////////////////////////////////////
+	//phpinfo();
+	ini_set('display_errors', 'On');
+	$msg ="";
+//////////////////////////////////////////////////////////////////
 
-//Debug
-ini_set('display_errors', 'On');
 
+if ($_SERVER["REQUEST_METHOD"] == "POST"){	
 
+	//Primero nos conectamos a la base de datos correspondiente
+	//Tenemos 1 BD por Mes. En ella tendremos tantas tablas como links a trackear
+	//Nos conectamos a la BD del mes que toca. Si no existe la creamos.
+	//El nombre de la tabla esta puesto en el value del form que hace de enlace del 
+	//link a trackear.
 
-// define variables and set to empty values
-$count = 0;
-$msg = "";
-//Esto lo que hace es cuando hay el Submit 
+	$db_name = date('M');
+	$table_name = $_POST["track_link"];
+	$count="";
+	$dia = date('D');
+	$hora = date('G');
+	$minuto = date('i');
 
-if ($_SERVER["REQUEST_METHOD"] == "POST"){
+  	//CheckDB(){
+	//db =getDB()
+	//if (!db) CreateTable($db_name);
+	//else ... }
 
-	$con = @mysqli_connect('devphp.lafamiglia.me:3306', 'dummy', 'Dummy123456_', 'counters');
-	if (!$con) {
+	//Development -> $db = new mysqli('localhost:3306', 'root', 'root', $db_name);
+	$db = @mysqli_connect('localhost:3306', 'dummy', 'Dummy123456_', $db_name);
+	
+	if (!$db) {
 	    echo "Error: " . mysqli_connect_error();
 		exit();
 	}
-	$msg = "Connected to MySQL";
+
+	//Debug
+	$msg = "Conencted to ".$db_name."At table".$table_name;
+  
+  	//CheckTabl(){
+	//table =getTable()
+	//if (!table) CreateTable($table_name);
+	//else ... }
+
+  	//Ahora tendremos que añadir una entrada a la tabla del link a trackear.
+  	//El id será la suma de tods las tablas que hay +1
+
+	$sql = "SELECT * FROM ".$table_name;
+	$result = $db->query($sql);
+
+	if ($result->num_rows > 0) {
+	    while($result->fetch_assoc()) {$count++;}
+	}
+	else {
+	    echo "Estaba vacío";
+	}
+
+	//Una vez tenemos los clicks hechos, sumamos 1 y añadimos.
+	$count++;
+	$sql = "INSERT INTO ".$table_name."(`id`, `dia`, `hora`, `min`) VALUES (".$count.",'".$dia."',".$hora.",".$minuto.")";
+
+	if ($db->query($sql) === TRUE) {
+	    echo "New record created successfully";
+	} else {
+	    echo "Error: " . $sql . "<br>" . $db->error;
+	}
+
+
+	$sql = "SELECT * FROM ".$table_name;
+	$result = $db->query($sql);
+
+	if ($result->num_rows > 0) {
+	    while($result->fetch_assoc()) {$count++;}
+	}
+	else {
+	    echo "Estaba vacío";
+	}
+
+	echo "Han clicado sobre ".$table_name," ".$count." veces!\n";
+	echo "Date: ".$db_name."/".$dia." -- ".$hora." : ".$minuto;
+
   }
   
 ?>
@@ -65,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 						<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
 						  <input name="c1" value="c1">
 						  <br><br>
-						  <input type="submit" name="submit" value="Submit">  
+						  <input type="submit" name="track_link" value="lacarta">  
 						</form>
 
 				<?php
