@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 	Produccion
 
 	*/
-	$db = @mysqli_connect('localhost:3306', 'dummy', 'Dummy123456_', '$db_name');
+	$db = @mysqli_connect('localhost:3306', 'dummy', 'Dummy123456_', $db_name);
 	
 	if (!$db) {
 	    echo "Error: " . mysqli_connect_error();
