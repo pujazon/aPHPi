@@ -1,0 +1,323 @@
+body {
+	background-color: white;
+}
+
+img{
+	width: 100%;
+	height: auto;
+}
+
+ul{
+	text-decoration: none;
+	list-style: NONE;
+	padding: 0;
+	text-align: right;
+	margin-right: 8em;
+    margin-top: 1.5em;
+}
+li{
+	width: 15%;
+}
+
+ul li{
+	display: inline-block;
+}
+	
+#content {
+	max-width: 1200px;
+	width: 100%;
+	margin: auto;
+}
+
+#logo-claim {
+	width: 80%;
+	margin: 1.04% auto 0 auto;
+	margin-top: 8%;
+}
+
+#carta_metric {
+	width: 35%;
+	margin-left: 70.8%;
+	margin-top: 2%;
+	overflow:hidden;
+}
+
+#texto {
+	width: 90%;
+	height: auto;
+	padding-top: 3%;
+	margin: 0 auto 0 auto;
+}
+
+#hashtag {
+	width: 20%;
+	height: auto;
+	margin: 0 auto 0 auto;
+}
+
+#direc {
+	width: 50%;
+	height: auto;
+	margin: 0px auto 0px auto;
+}
+
+#puntos {
+	padding-top: 5%;
+	width: 30%;
+	margin: 0 auto;
+	padding-bottom: 2%;
+}
+
+#mdos {
+	width: 32%;
+	margin: 0 auto;
+	margin-top: 0%;
+	padding-right: 1%;
+}
+
+#delivery {
+	width: 65%;
+    text-align: center;
+    margin: 3% 17%;
+    margin-bottom: 5%;
+}
+#logo_menu{
+	cursor: pointer;
+}
+.delivery_m2 {
+	width: 38%;
+	display: inline-block;
+}
+
+.delivery_metric {
+	width: 38%;
+	display: inline-block;
+}
+
+	.delivery_bike {
+		width: 12%;
+		display: inline-block;
+		margin-right: 2%;
+		margin-left: 2%;
+	}
+
+	.delivery_rombo {
+		width: 5%;
+		display: inline-block;
+		margin-right: 2%;
+	}
+
+	#social {
+
+		width: 54%;
+		text-align: center;
+		margin: 3% auto;
+		margin-bottom: 8%;
+
+	}
+	.social-item {
+		width: 8%;
+		display: inline-block;
+		margin-left: 4.9%;
+	}
+
+	.social-item2 {
+		width: 8%;
+		display: inline-block;
+		margin-left: 4.9%;
+		margin-right: 4.9%;
+	}
+.mc-layout__modalContent{
+		height: 65% !important;
+	}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+	.mc-layout__modalContent{
+		height: 65% !important;
+	}
+
+    #logo-claim {
+        width: 80%;
+    }
+	ul{
+		text-decoration: none;
+		list-style: none;
+		padding: 0;
+	}
+
+	#carta_metric ul li{
+		float: left;
+		width: 34%;
+		padding-left: 30px;
+	}
+    #social {
+        width: 70%;
+        margin: 9% auto;
+    }
+    #direc {
+        width: 58.55%;
+        margin: 38px auto 0px auto;
+    }
+	#texto {
+    	width: 100%;
+	}
+	#mdos {
+		width: 50%;
+	}
+	
+	#hashtag {
+   		width: 35%;
+	}
+	#carta_metric {
+		width: 30%;
+		margin-left: 64.8%;
+		margin-top: 2%;
+		overflow:hidden;
+	}
+}
+@media (min-width: 768px) and (max-width: 1024px){
+.mc-layout__modalContent{
+		height: 65% !important;
+	}
+    #logo-claim {
+        width: 80%;
+    }
+	ul{
+		text-decoration: none;
+		list-style: NONE;
+		padding: 0;
+	}
+
+	#carta_metric ul li{
+		float: left;
+		width: 30%;
+	}
+	#carta_metric {
+		width: 30%;
+		margin-left: 64.8%;
+		margin-top: 2%;
+		overflow:hidden;
+	}
+    #social {
+        width: 70%;
+        margin: 9% auto;
+    }
+    #direc {
+        width: 58.55%;
+        margin: 38px auto 0px auto;
+    }
+	#texto {
+    	width: 100%;
+	}
+	#mdos {
+		width: 50%;
+	}
+	
+	#hashtag {
+   		width: 35%;
+	}
+}
+@media (min-width: 426px) and (max-width: 767px) {
+  	#logo-claim {
+        width: 80%;
+    }
+	ul{
+		text-decoration: none;
+		list-style: NONE;
+		padding: 0;
+	}
+
+	#carta_metric ul li{
+		float: left;
+		width: 30%;
+	}
+    #social {
+        width: 70%;
+        margin: 9% auto;
+    }
+    #direc {
+        width: 58.55%;
+        margin: 38px auto 0px auto;
+    }
+	#texto {
+    	width: 100%;
+	}
+	#mdos {
+		width: 50%;
+	}
+	
+	#hashtag {
+   		width: 35%;
+	}
+}
+
+@media (min-width: 320px) and (max-width: 425px){
+	#logo-claim {
+        width: 80%;
+    }
+    #social {
+        width: 70%;
+        margin: 9% auto;
+    }
+    #direc {
+        width: 58.55%;
+        margin: 38px auto 0px auto;
+    }
+	#texto {
+   		width: 100%;
+	}
+	#mdos {
+		width: 50%;
+	}
+	#hashtag {
+  	  width: 35%;
+	}
+}
+a{
+			text-decoration: none;
+		}
+		a.disabled {
+			pointer-events: none;
+		}
+		.asterisk{
+			font-weight: bolder;
+		}
+		.popup{
+			font-family: "Arial";
+			margin:0 37%;
+			border-radius: 10px;
+			position: fixed;
+			background-color: white;
+			width: 25%;
+			top: 25%;
+			border: 1px solid grey;
+			padding: 10px;
+			font-family: arial;
+			opacity: 0.95;
+		}
+		
+		.mc-field-group{
+			padding-bottom: 1em;
+		}
+		.oculto{
+		  display: none;
+		}
+		.button{
+			font-size: 14px;
+			height: 45px;
+			border: 1px solid #5a5a5a;
+			border-radius: 3px;
+			min-width: 22%;
+			color: #FFF;
+			background-color: #5a5a5a;
+   			margin-top: 5px;
+		}
+		.button:hover{
+			cursor: pointer;
+			background-color: #646060
+		}
+		input[type="email"]{
+				width: 90%;
+		}
+
+}
