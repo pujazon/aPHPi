@@ -24,10 +24,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 	$hora = date('G');
 	$minuto = date('i');
 
+
   	//CheckDB(){
 	//db =getDB()
 	//if (!db) CreateTable($db_name);
 	//else ... }
+
 
 	/*Development Home
     $db = new mysqli('localhost:3306', 'root', 'root', $db_name);
@@ -40,7 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
 	*/
 	$db = @mysqli_connect('localhost:3306', 'dummy', 'Dummy123456_', $db_name);
-	
+
+
 	if (!$db) {
 	    echo "Error: " . mysqli_connect_error();
 		exit();
@@ -54,7 +57,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 	////////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////// SUMAR TRACKEO LINK////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////
-  	
 
   	//Ahora tendremos que añadir una entrada a la tabla del link a trackear.
   	//El id será la suma de tods las tablas que hay +1
@@ -99,29 +101,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 	echo "Date: ".$db_name."/".$dia." -- ".$hora." : ".$minuto;
 
 	////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////// ACCION: SI URL ABSOLUTA, AQUI, PQ HEADERS SE CARGAN    /////////////////////////////
+	/////////// ANTES QUE ESTE INSTANCIADO EL <HEAD> QUE ES EL HEADER  /////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////
 
+			switch ($table_name) {
 
-	////////////////////////////////////////////////////////////////////////////////////////////////
-	//////////////////////////SWITCH PARA HACER ACCIO (URL, JS...)//////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////////////////
+			    case "facebook":
+					$msg = "Soy Facebook HARDCODED";
+			    	$newURL="facebook.com";
+			    	header('Location:http://'.$newURL);				
+			    	die();
+			       	break;
+			}
 
-
-	switch ($table_name) {
-	    case "lacarta":
-	    	$msg = "Soy Facebook HARDCODED";	    
-	    	$newURL="google.es";
-	    	header('Location: '.$newURL);		
-	    	die();	
-			break;
-
-	    case "facebook":
-			$msg = "Soy Facebook HARDCODED";
-	    	$newURL="facebook.com";
-	    	header('Location:http://'.$newURL);				
-	    	die();
-	       	break;
-	}
+	/////CERRAR SESION DB
 
   }
   
@@ -157,6 +151,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 		<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
 		<meta name="theme-color" content="#ffffff">
 		<style>
+
+			input[type=submit] {
+				background: url(https://images-na.ssl-images-amazon.com/images/I/6186VfIYnPL.png);
+				border: 0;
+				display: block;
+				height: _the_image_height;
+				width: _the_image_width;
+			}
+
 			a{
 			text-decoration: none;
 			}
@@ -249,6 +252,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 			}
 			
 		</style>
+
+		<script type="text/javascript">
+			
+		//Hello world implementado en JS y instanciado, e indirectamente llamado, a traves de PHP
+		
+		function jsfunction(){
+			alert("Hello World!");
+		}
+		
+		</script>
+
+        <script src="js/app.js" type="text/javascript" charset="utf-8"></script> 
+
 		<script>
 		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -259,7 +275,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 		</script>
 		<script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script><script type="text/javascript">require(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us13.list-manage.com","uuid":"9a010a5289a628df33a8d5f31","lid":"1f3becfca1"}) })</script>
 	</head>
-	<body onclick="state_action(event)">
+
+
+
+	<body onclick="state_action(event)"
+
+		<?php
+
+			////////////////////////////////////////////////////////////////////////////////////////////////
+			/// AQUI SOLO PARA JS O PDF 										////////////////////////////
+			/// LAS URL LAS TIRAREMOS DES DE ARRIBA PQ SINO HEADER YA CARGADO   ////////////////////////////
+			/// NO PROBLEMA PQ LOS JS YA ESTAN DECLARADOS EN JS/APP.JS     		////////////////////////////
+			/// Toda la otra logica sigue igual									////////////////////////////
+			////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+			if ($_SERVER["REQUEST_METHOD"] == "POST"){	
+
+				$link = $_POST["track_link"];
+
+				switch ($link) {
+				    case "lacarta":							    	
+						  $command = 'onload="jsfunction()"';
+						  echo $command;
+						  break;
+				}
+
+			}
+		?>	
+	>
 		<div id="wrapper" style="opacity: 1;">
 			<div id="content">
 				<div id="logo-claim">
@@ -271,9 +315,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 				</div>
 				<ul class="hide-for-small-only">
 					<li>
+
+					<!--///////////////////LA CARTA///////////////////////////// -->
+					<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 		
+							<input type="image" src="img/lacarta.png" style="width: 75%;" name="track_link" value="lacarta">
+					</form>
+						<!--
 						<a href="https://goo.gl/vMgSfK" target="_blank">
 							<img  id="logo_carta" src="img/lacarta.png" alt="Menú Metric Market" title="Menú Metric Market"  style="width: 75%;">
 						</a>
+						-->
+					<!-- ////////////////////////////////////////////////////// -->
+
 					</li>
 					<li onclick="popup_open()">
 						<img src="img/menudiario.png" alt="Recibe en tu correo nuestro menú diario!" title="Recibe nuestro menú diario!"  style="cursor: pointer;">
@@ -281,11 +334,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 				</ul>
 				<center class="show-for-small-only">
 					<ul>
-						<li>
-							<a href="https://goo.gl/vMgSfK" target="_blank">
-								<img  id="logo_carta" src="img/lacarta.png" alt="Menú Metric Market" title="Menú Metric Market"  style="width: 75%;">
-							</a>
-						</li>
+					<!--///////////////////LA CARTA///////////////////////////// -->
+						<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 		
+							<input type="image" src="img/lacarta.png" style="width: 75%;" name="track_link" value="lacarta">
+						</form>
+						<!--
+						<a href="https://goo.gl/vMgSfK" target="_blank">
+							<img  id="logo_carta" src="img/lacarta.png" alt="Menú Metric Market" title="Menú Metric Market"  style="width: 75%;">
+						</a>
+						-->
+					<!-- ////////////////////////////////////////////////////// -->
 						<li onclick="popup_open()">
 							<img src="img/menudiario.png" alt="Recibe en tu correo nuestro menú diario!" title="Recibe nuestro menú diario!"  style="cursor: pointer;">
 						</li>
@@ -320,9 +378,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 				
 				<div id="social">
 					<div class="social-item">
+
+					<!--///////////////////LA CARTA///////////////////////////// -->
+					<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 		
+							<input type="image" src="img/facebook.png" style="width: 75%;" name="track_link" value="facebook">
+					</form>					
+						<!--
 						<a href="https://goo.gl/4So8r5" target="_blank">
 							<img src="img/facebook.png" alt="Visitanos en Facebook" title="Visitanos en Facebook">
 						</a>
+						-->
+					<!--//////////////////////////////////////////////////////////// -->
+
 					</div>
 					<div class="social-item">
 						<a href="https://goo.gl/6mQ85t" target="_blank">
@@ -411,33 +478,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 						<br clear="all" />
 					</div>
 				</div>
-
-
-
-						<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
-						  <input name="c1" value="c1">
-						  <br><br>
-						  <input type="submit" name="track_link" value="lacarta">  
-						</form>
-
-
-						<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
-						  <input name="c1" value="c1">
-						  <br><br>
-						  <input type="submit" name="track_link" value="facebook">  
-						</form>
-
-				<?php
-					echo "<h2>When submit -> Connect to DB</h2>";
-					echo $msg;
-					echo "<br>";
-					?>
-
-
-
 			</div>
 		</div>
-						<div class="popup oculto" id="mc_embed_signup_menu" na>
+
+		<div class="popup oculto" id="mc_embed_signup_menu" na>
 			<form action="https://mc.us13.list-manage.com/subscribe/post?u=9a010a5289a628df33a8d5f31&id=a354db57da&e=91d138b8ab" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
 				<img class="icono_cerrar" src="img/icono_cerrar.png" onclick="popup_close()">
 				
@@ -461,6 +505,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 	</body>
 </html>
 <script>
+
 	//Esto se activa solo cuando se le da al botón de "Suscribirse" Por lo que no ha de actuar
 	//Como un Toggle sino que simplement
 	
