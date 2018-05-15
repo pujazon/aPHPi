@@ -48,7 +48,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 	    echo "Error: " . mysqli_connect_error();
 		exit();
 	}
-  
   	//CheckTabl(){
 	//table =getTable()
 	//if (!table) CreateTable($table_name);
@@ -96,9 +95,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 	else {
 	    echo "Estaba vacío";
 	}
-
+	
+	/*
 	echo "Han clicado sobre ".$table_name," ".$count." veces!\n";
 	echo "Date: ".$db_name."/".$dia." -- ".$hora." : ".$minuto;
+	*/
 
 	////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////// ACCION: SI URL ABSOLUTA, AQUI, PQ HEADERS SE CARGAN    /////////////////////////////
@@ -108,9 +109,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 			switch ($table_name) {
 
 			    case "facebook":
-					$msg = "Soy Facebook HARDCODED";
-			    	$newURL="facebook.com";
-			    	header('Location:http://'.$newURL);				
+			    	$newURL="https://www.facebook.com/MetricMarket/";
+			    	header('Location:'.$newURL);				
+			    	die();
+			       	break;
+			
+			    case "instagram":
+			    	$newURL="https://www.instagram.com/metricmarket/";
+			    	header('Location:'.$newURL);				
+			    	die();
+			       	break;
+			
+			    case "logo":
+			    	$newURL="https://www.instagram.com/metricmarket/";
+			    	header('Location:'.$newURL);				
 			    	die();
 			       	break;
 			}
@@ -299,65 +311,75 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 						  $command = 'onload="jsfunction()"';
 						  echo $command;
 						  break;
+					case "menud":
+						  $command = 'onload="popup_open()"';
+						  echo $command;
+						  break;							
 				}
 
 			}
 		?>	
 	>
 		<div id="wrapper" style="opacity: 1;">
+		<a href="counters.php" > 
+			<h1> Ver links clicados -> </h1>
+		</a>
 			<div id="content">
 				<div id="logo-claim">
 					<div id="logo">
+
+					<!--///////////////////LOGO///////////////////////////// -->
+						<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 		
+							<input type="image" src="img/logo.png" style="width: 900px;" name="track_link" value="logo">
+						</form>
+					<!-- ////////////////////////////////////////////////////// 								
 						<a href="https://www.instagram.com/metricmarket/" target="_blank">
 							<img src="img/logo.png" alt="Metric Market" title="Metric Market">
-						</a>
+						</a> -->
+
 					</div>
 				</div>
-				<ul class="hide-for-small-only">
-					<li>
-
+				<center class="row hide-for-small-only">
+				<div class="small-6 small-centered columns">
 					<!--///////////////////LA CARTA///////////////////////////// -->
-					<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 		
-							<input type="image" src="img/lacarta.png" style="width: 75%;" name="track_link" value="lacarta">
+					<form class="small-6 columns" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 		
+							<input type="image" src="img/lacarta.png" style="width: 100px;" name="track_link" value="lacarta">
 					</form>
 						<!--
 						<a href="https://goo.gl/vMgSfK" target="_blank">
-							<img  id="logo_carta" src="img/lacarta.png" alt="Menú Metric Market" title="Menú Metric Market"  style="width: 75%;">
+							<img  id="logo_carta" src="img/lacarta.png" alt="Menú Metric Market" title="Menú Metric Market"  style="width: 100px;">
 						</a>
 						-->
 					<!-- ////////////////////////////////////////////////////// -->
 
-					</li>
-					<li onclick="popup_open()">
-						<img src="img/menudiario.png" alt="Recibe en tu correo nuestro menú diario!" title="Recibe nuestro menú diario!"  style="cursor: pointer;">
-					</li>
-				</ul>
+					<!--///////////////////MENUD///////////////////////////// -->
+						<form class="small-6 columns" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 		
+							<input type="image" src="img/menudiario.png" style="width: 100px;" name="track_link" value="menud">
+						</form>
+					<!-- ////////////////////////////////////////////////////// -->		
+
+				</div>
+				</center>
 				<center class="show-for-small-only">
-					<ul>
 					<!--///////////////////LA CARTA///////////////////////////// -->
 						<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 		
-							<input type="image" src="img/lacarta.png" style="width: 75%;" name="track_link" value="lacarta">
+							<input type="image" src="img/lacarta.png" style="width: 100px;" name="track_link" value="lacarta">
 						</form>
-						<!--
-						<a href="https://goo.gl/vMgSfK" target="_blank">
-							<img  id="logo_carta" src="img/lacarta.png" alt="Menú Metric Market" title="Menú Metric Market"  style="width: 75%;">
-						</a>
-						-->
 					<!-- ////////////////////////////////////////////////////// -->
-						<li onclick="popup_open()">
-							<img src="img/menudiario.png" alt="Recibe en tu correo nuestro menú diario!" title="Recibe nuestro menú diario!"  style="cursor: pointer;">
-						</li>
-					</ul>
+
+					<!--///////////////////MENUD///////////////////////////// -->
+						<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 		
+							<input type="image" src="img/menudiario.png" style="width: 100px;" name="track_link" value="menud">
+						</form>
+					<!-- ////////////////////////////////////////////////////// -->	
+
 				</center>
 				<div id="texto">
 					<img src="img/7ways.png" alt="Metric Market" title="Metric Market">
 				</div>
 				
-				<div id="hashtag">
-					<a href="https://www.instagram.com/explore/tags/7ways2love/" target="_blank">
-						<img src="img/hashtag.png" alt="+ info" title="+ info">
-					</a>
-				</div>
+				<!-- FALTA LO DEL HASTAG QUE NO SE QUE ERA -->
+
 				<div id="puntos">
 					<img src="img/puntos.png" alt="" title="">
 				</div>
@@ -371,7 +393,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 				
 				<div id="delivery">
 					<a href="http://www.m2glutenfree.com" target="_blank">
-						<img style="width:75%;" src="img/mensaje delivery2.jpg" alt="Delivery Schedule de 12h a 16h y de 20h a 23h" title="Information Delivery">
+						<img style="width:100px;" src="img/mensaje delivery2.jpg" alt="Delivery Schedule de 12h a 16h y de 20h a 23h" title="Information Delivery">
 					</a>
 					<br clear="all" />
 				</div>
@@ -379,22 +401,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 				<div id="social">
 					<div class="social-item">
 
-					<!--///////////////////LA CARTA///////////////////////////// -->
+					<!--///////////////////FACEBOOK///////////////////////////// -->
 					<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 		
-							<input type="image" src="img/facebook.png" style="width: 75%;" name="track_link" value="facebook">
+							<input type="image" src="img/facebook.png" style="width: 100px;" name="track_link" value="facebook">
 					</form>					
-						<!--
-						<a href="https://goo.gl/4So8r5" target="_blank">
-							<img src="img/facebook.png" alt="Visitanos en Facebook" title="Visitanos en Facebook">
-						</a>
-						-->
 					<!--//////////////////////////////////////////////////////////// -->
 
 					</div>
 					<div class="social-item">
+					<!--///////////////////INSTAGRAM///////////////////////////// -->
+					<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 		
+							<input type="image" src="img/insta.png" style="width: 100px;" name="track_link" value="instagram">
+					</form>					
+
+					<!--//////////////////////////////////////////////////////////// -->
+					<!--
 						<a href="https://goo.gl/6mQ85t" target="_blank">
 							<img src="img/insta.png" alt="Visitanos en instagram" title="Visitanos en instagram">
 						</a>
+					-->
 					</div>
 					<div class="social-item">
 						<a href="https://goo.gl/EqATTq" target="_blank">
