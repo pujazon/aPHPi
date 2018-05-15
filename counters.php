@@ -32,7 +32,7 @@
 				//if (!db) CreateTable($db_name);
 				//else ... }
 
-			    $db = new mysqli('localhost:3306', 'root', 'root', $db_name);
+			    $db = @mysqli_connect('localhost:3306', 'root', 'root', $db_name);
 				//Produccion -> $con = @mysqli_connect('devphp.lafamiglia.me:3306', 'dummy', 'Dummy123456_', 'counters');
 				
 				if (!$db) {
